@@ -85,6 +85,16 @@ class TaskTest < Test::Unit::TestCase
     #assert_equal(a.id, c.notified_id)
   end
   
+  should "store the task's completion date when a task is completed" do
+    c = Case.create
+    a = c.assignments.create(:due_at => 1.week.ago)
+
+    a.complete!
+    
+    a.reload
+    
+    assert_not_nil a.completed_at
+  end
 end
 
 
